@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dany Squash Tour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <nav class="topbar">
+        <div class="brand">
+          <span class="brand-mark">
+            <img src="imagenes/logo danysquash.jpeg" alt="Logo Dany Squash">
+          </span>
+          <div>
+            <p class="eyebrow">Circuito oficial</p>
+            <h1 id="circuitName">Dany Squash Tour</h1>
+          </div>
+        </div>
+        <button id="adminToggle" class="admin-toggle" type="button">Editar contenido</button>
+      </nav>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" id="heroSeason">Temporada 2026</p>
+          <h2 id="heroHeadline">Ranking, calendario y toda la info del circuito en un solo lugar.</h2>
+          <div class="hero-logo-lockup">
+            <img src="imagenes/logo danysquash.jpeg" alt="Dany Squash">
+          </div>
+          <p id="heroDescription">
+            Segui la evolución de cada categoría, revisá movimientos fecha a fecha y mantené el circuito actualizado con fotos, puntos y novedades.
+          </p>
+          <div class="hero-actions">
+            <a href="#ranking" class="cta-primary">Ver ranking</a>
+            <a href="#calendario" class="cta-secondary">Próximas fechas</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <p class="panel-label">Última actualización</p>
+          <strong id="heroLastUpdate">Abril 2026</strong>
+          <div class="panel-stats" id="heroStats"></div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section class="tabs-panel">
+        <div class="tabs" role="tablist" aria-label="Secciones del circuito">
+          <button class="tab is-active" data-tab="ranking" type="button">Ranking</button>
+          <button class="tab" data-tab="calendario" type="button">Calendario</button>
+          <button class="tab" data-tab="auspiciantes" type="button">Auspiciantes</button>
+          <button class="tab" data-tab="circuito" type="button">Circuito</button>
+        </div>
+
+        <section id="ranking" class="tab-content is-active">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Ranking general</p>
+              <h3>Las 6 categorías del circuito</h3>
+            </div>
+            <p class="section-note">Flecha verde: subió posiciones. Flecha roja: bajó. Gris: se mantuvo.</p>
+          </div>
+
+          <div class="category-pills" id="categoryPills"></div>
+          <div class="ranking-layout">
+            <div class="ranking-card">
+              <div class="ranking-header">
+                <div>
+                  <p class="eyebrow">Categoría activa</p>
+                  <h4 id="activeCategoryName">Primera</h4>
+                </div>
+                <div class="ranking-meta">
+                  <span id="activeRoundLabel">Fecha actual</span>
+                  <strong id="activeRoundDate">Sin cerrar</strong>
+                </div>
+              </div>
+              <div id="rankingTable" class="ranking-table"></div>
+            </div>
+
+            <aside class="history-card">
+              <p class="eyebrow">Historial reciente</p>
+              <h4>Movimientos por fecha</h4>
+              <div id="historyList" class="history-list"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="calendario" class="tab-content">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Próximas fechas</p>
+              <h3>Calendario del circuito</h3>
+            </div>
+          </div>
+          <div class="calendar-feature">
+            <div class="calendar-feature-copy">
+              <p class="eyebrow">Visual oficial</p>
+              <h4>Calendario 2026</h4>
+              <p>La imagen oficial del circuito queda integrada como pieza central para acompañar el detalle de cada fecha.</p>
+            </div>
+            <div class="calendar-feature-media">
+              <img src="imagenes/calendario.jpeg" alt="Calendario oficial Dany Squash 2026">
+            </div>
+          </div>
+          <div id="calendarList" class="calendar-list"></div>
+        </section>
+
+        <section id="auspiciantes" class="tab-content">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Aliados del tour</p>
+              <h3>Auspiciantes</h3>
+            </div>
+          </div>
+          <div id="sponsorGrid" class="sponsor-grid"></div>
+        </section>
+
+        <section id="circuito" class="tab-content">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Información</p>
+              <h3>Sobre el circuito</h3>
+            </div>
+          </div>
+          <div class="info-grid">
+            <article class="info-card">
+              <h4>Formato</h4>
+              <p id="infoFormat"></p>
+            </article>
+            <article class="info-card">
+              <h4>Puntaje</h4>
+              <p id="infoScoring"></p>
+            </article>
+            <article class="info-card info-card-wide">
+              <h4>Descripción general</h4>
+              <p id="infoAbout"></p>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <aside id="adminPanel" class="admin-panel" aria-hidden="true">
+    <div class="admin-header">
+      <div>
+        <p class="eyebrow">Panel de edición</p>
+        <h3>Actualizar el circuito</h3>
+      </div>
+      <button id="adminClose" class="icon-button" type="button" aria-label="Cerrar panel">×</button>
+    </div>
+
+    <div class="admin-sections">
+      <section class="admin-section">
+        <h4>Datos generales</h4>
+        <div class="admin-grid">
+          <label>
+            Nombre del circuito
+            <input id="inputCircuitName" type="text">
+          </label>
+          <label>
+            Temporada
+            <input id="inputSeason" type="text">
+          </label>
+          <label class="admin-grid-full">
+            Titular principal
+            <input id="inputHeadline" type="text">
+          </label>
+          <label class="admin-grid-full">
+            Descripción corta
+            <textarea id="inputDescription" rows="3"></textarea>
+          </label>
+          <label>
+            Formato
+            <textarea id="inputFormat" rows="3"></textarea>
+          </label>
+          <label>
+            Puntaje
+            <textarea id="inputScoring" rows="3"></textarea>
+          </label>
+          <label class="admin-grid-full">
+            Información general
+            <textarea id="inputAbout" rows="4"></textarea>
+          </label>
+        </div>
+        <button id="saveMeta" class="cta-primary" type="button">Guardar datos generales</button>
+      </section>
+
+      <section class="admin-section">
+        <div class="admin-section-head">
+          <h4>Ranking por categoría</h4>
+          <label>
+            Categoría
+            <select id="categoryEditorSelect"></select>
+          </label>
+        </div>
+
+        <div class="admin-grid">
+          <label>
+            Etiqueta de fecha
+            <input id="inputRoundLabel" type="text" placeholder="Ej: Fecha 4">
+          </label>
+          <label>
+            Fecha visible
+            <input id="inputRoundDate" type="text" placeholder="Ej: 21 mayo 2026">
+          </label>
+        </div>
+
+        <div id="playerEditorList" class="player-editor-list"></div>
+
+        <div class="admin-actions">
+          <button id="addPlayer" class="cta-secondary" type="button">Agregar jugador</button>
+          <button id="saveCategory" class="cta-primary" type="button">Guardar cambios</button>
+          <button id="closeRound" class="cta-primary alt" type="button">Cerrar fecha y guardar historial</button>
+        </div>
+      </section>
+
+      <section class="admin-section">
+        <div class="admin-section-head">
+          <h4>Calendario</h4>
+          <button id="addCalendarItem" class="cta-secondary" type="button">Agregar fecha</button>
+        </div>
+        <div id="calendarEditorList" class="stack-list"></div>
+        <button id="saveCalendar" class="cta-primary" type="button">Guardar calendario</button>
+      </section>
+
+      <section class="admin-section">
+        <div class="admin-section-head">
+          <h4>Auspiciantes</h4>
+          <button id="addSponsor" class="cta-secondary" type="button">Agregar sponsor</button>
+        </div>
+        <div id="sponsorEditorList" class="stack-list"></div>
+        <button id="saveSponsors" class="cta-primary" type="button">Guardar auspiciantes</button>
+      </section>
+
+      <section class="admin-section">
+        <h4>Respaldo</h4>
+        <p class="admin-note">Podés exportar los datos del circuito a un archivo JSON y volver a importarlo cuando quieras seguir actualizando.</p>
+        <div class="admin-actions">
+          <button id="exportData" class="cta-secondary" type="button">Exportar JSON</button>
+          <label class="import-label">
+            Importar JSON
+            <input id="importData" type="file" accept="application/json">
+          </label>
+        </div>
+      </section>
+    </div>
+  </aside>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

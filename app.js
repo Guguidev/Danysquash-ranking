@@ -112,6 +112,7 @@ let state = normalizeState(loadState());
 let activeTab = "ranking";
 let activeCategoryId = state.categories[0]?.id;
 let editingCategoryId = activeCategoryId;
+const isAdminMode = new URLSearchParams(window.location.search).get("admin") === "true";
 
 const elements = {
   circuitName: document.getElementById("circuitName"),
@@ -161,6 +162,13 @@ function bindEvents() {
       renderTabs();
     });
   });
+
+  if (!isAdminMode) {
+    return;
+  }
+
+  elements.adminToggle.hidden = false;
+  elements.adminPanel.hidden = false;
 
   elements.adminToggle.addEventListener("click", () => {
     elements.adminPanel.classList.add("is-open");

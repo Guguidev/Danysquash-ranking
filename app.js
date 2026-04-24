@@ -115,6 +115,7 @@ let editingCategoryId = activeCategoryId;
 const isAdminMode = new URLSearchParams(window.location.search).get("admin") === "true";
 
 const elements = {
+  topbar: document.querySelector(".topbar"),
   circuitName: document.getElementById("circuitName"),
   heroSeason: document.getElementById("heroSeason"),
   heroHeadline: document.getElementById("heroHeadline"),
@@ -167,7 +168,7 @@ function bindEvents() {
     return;
   }
 
-  elements.adminToggle.hidden = false;
+  elements.adminToggle = createAdminToggle();
   elements.adminPanel.hidden = false;
 
   elements.adminToggle.addEventListener("click", () => {
@@ -351,6 +352,10 @@ function renderInfo() {
 }
 
 function renderEditor() {
+  if (!isAdminMode) {
+    return;
+  }
+
   elements.inputCircuitName.value = state.meta.circuitName;
   elements.inputSeason.value = state.meta.season;
   elements.inputHeadline.value = state.meta.headline;
@@ -697,6 +702,16 @@ async function importData(event) {
 function closeAdminPanel() {
   elements.adminPanel.classList.remove("is-open");
   elements.adminPanel.setAttribute("aria-hidden", "true");
+}
+
+function createAdminToggle() {
+  const button = document.createElement("button");
+  button.id = "adminToggle";
+  button.className = "admin-toggle";
+  button.type = "button";
+  button.textContent = "Editar contenido";
+  elements.topbar.appendChild(button);
+  return button;
 }
 
 function latestGlobalUpdate() {

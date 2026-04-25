@@ -116,6 +116,7 @@ const isAdminMode = new URLSearchParams(window.location.search).get("admin") ===
 
 const elements = {
   topbar: document.querySelector(".topbar"),
+  calendarShortcut: document.getElementById("calendarShortcut"),
   circuitName: document.getElementById("circuitName"),
   heroSeason: document.getElementById("heroSeason"),
   heroHeadline: document.getElementById("heroHeadline"),
@@ -162,6 +163,11 @@ function bindEvents() {
       activeTab = button.dataset.tab;
       renderTabs();
     });
+  });
+
+  elements.calendarShortcut?.addEventListener("click", (event) => {
+    event.preventDefault();
+    openTabAndScroll("calendario");
   });
 
   if (!isAdminMode) {
@@ -633,7 +639,7 @@ function addCalendarItem() {
     id: uid(),
     date: "Próxima fecha",
     title: `Fecha ${state.calendar.length + 1}`,
-    venue: "Sede a confirmar",
+    venue: "Club DanySquash",
     status: "Pendiente",
   });
   persist();
@@ -704,6 +710,18 @@ function closeAdminPanel() {
   elements.adminPanel.setAttribute("aria-hidden", "true");
 }
 
+function openTabAndScroll(tabId) {
+  activeTab = tabId;
+  renderTabs();
+
+  window.requestAnimationFrame(() => {
+    document.getElementById(tabId)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
+}
+
 function createAdminToggle() {
   const button = document.createElement("button");
   button.id = "adminToggle";
@@ -769,6 +787,11 @@ function normalizeState(source) {
   if (!Array.isArray(next.calendar) || shouldReplaceCalendar(next.calendar)) {
     next.calendar = clone(defaultData.calendar);
   }
+
+  next.calendar = next.calendar.map((item) => ({
+    ...item,
+    venue: item.venue === "Sede a confirmar" ? "Club DanySquash" : item.venue,
+  }));
 
   if (!Array.isArray(next.sponsors) || shouldReplaceSponsors(next.sponsors)) {
     next.sponsors = clone(defaultData.sponsors);
